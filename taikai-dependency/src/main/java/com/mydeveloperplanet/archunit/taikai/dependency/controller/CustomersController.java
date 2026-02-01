@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.mydeveloperplanet.archunit.taikai.dependency.model.Customer;
 import com.mydeveloperplanet.archunit.taikai.dependency.openapi.api.CustomersApi;
 import com.mydeveloperplanet.archunit.taikai.dependency.repository.CustomerRepository;
+import com.mydeveloperplanet.archunit.taikai.dependency.service.CustomerService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,28 +17,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CustomersController implements CustomersApi {
 
-    private CustomerRepository customerRepository;
+    private CustomerService customerService;
 
-    public CustomersController(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+    public CustomersController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     @Override
     public ResponseEntity<List<com.mydeveloperplanet.archunit.taikai.dependency.openapi.model.Customer>> customersGet() {
-        List<Customer> customers = customerRepository.getAllCustomers();
+        List<Customer> customers = customerService.getAllCustomers();
         return new ResponseEntity<>(convertToOpenAPIModel(customers), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Void> customersPost(@RequestBody com.mydeveloperplanet.archunit.taikai.dependency.openapi.model.Customer openAPICustomer) {
         Customer customer = convertToDomainModel(openAPICustomer);
-        customerRepository.createCustomer(customer);
+        customerService.createCustomer(customer);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<com.mydeveloperplanet.archunit.taikai.dependency.openapi.model.Customer> customersIdGet(@PathVariable Long id) {
-        Optional<Customer> customerOptional = customerRepository.getCustomerById(id);
+        Optional<Customer> customerOptional = customerService.getCustomerById(id);
         if (customerOptional.isPresent()) {
             return new ResponseEntity<>(convertToOpenAPIModel(customerOptional.get()), HttpStatus.OK);
         } else {
@@ -48,13 +49,13 @@ public class CustomersController implements CustomersApi {
     @Override
     public ResponseEntity<Void> customersIdPut(@PathVariable Long id, @RequestBody com.mydeveloperplanet.archunit.taikai.dependency.openapi.model.Customer openAPICustomer) {
         Customer customerDetails = convertToDomainModel(openAPICustomer);
-        customerRepository.updateCustomer(id, customerDetails);
+        customerService.updateCustomer(id, customerDetails);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Void> customersIdDelete(@PathVariable Long id) {
-        customerRepository.deleteCustomer(id);
+        customerService.deleteCustomer(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
