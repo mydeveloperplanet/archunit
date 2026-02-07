@@ -16,6 +16,6 @@
 		<module>taikai-introduction</module>
 		<module>taikai-dependency</module>
 		<module>taikai-springconfig</module>
-	</modules>
+  </modules>
 
 </project>
