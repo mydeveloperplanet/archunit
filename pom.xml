@@ -17,6 +17,7 @@
 		<module>taikai-dependency</module>
 		<module>taikai-springconfig</module>
 		<module>taikai-webconfig</module>
+		<module>taikai-complete</module>
 	</modules>
 
 </project>
