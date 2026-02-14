@@ -24,6 +24,7 @@ class ArchitectureTest {
     void testShouldFulfillConstraints() {
         Taikai.builder()
                 .namespace(BASE_PACKAGE)
+                .excludeClasses("^com\\.mydeveloperplanet\\.archunit\\.taikai\\.complete\\.(openapi|jooq).*$") // exclude generated code
                 .java(java -> java
                         // Spring Configuration rules
                         .classesShouldResideInPackage(".*Config", BASE_PACKAGE + ".config")
@@ -32,7 +33,7 @@ class ArchitectureTest {
                         .classesShouldBeAnnotatedWith(".*ArchunitTaikaiSpringConfigApplication", ConfigurationPropertiesScan.class)
                         .classesAnnotatedWithShouldBeRecords(ConfigurationProperties.class)
                         // end Spring Configuration rules
-                        .noUsageOfDeprecatedAPIs() // ==> openapi generator uses deprecated org.springframework.lang.Nullable
+                        .noUsageOfDeprecatedAPIs()
                         .methodsShouldNotDeclareGenericExceptions()
                         .utilityClassesShouldBeFinalAndHavePrivateConstructor()
                         .imports(imports -> imports
