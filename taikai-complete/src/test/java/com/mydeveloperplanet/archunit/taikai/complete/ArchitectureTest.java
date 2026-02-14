@@ -30,13 +30,14 @@ class ArchitectureTest {
                         .classesShouldResideInPackage(".*Config", BASE_PACKAGE + ".config")
                         .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, Configuration.class)
                         .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, EnableConfigurationProperties.class)
-                        .classesShouldBeAnnotatedWith(".*ArchunitTaikaiSpringConfigApplication", ConfigurationPropertiesScan.class)
+                        .classesShouldBeAnnotatedWith(".*ArchunitTaikaiCompleteApplication", ConfigurationPropertiesScan.class)
                         .classesAnnotatedWithShouldBeRecords(ConfigurationProperties.class)
                         // end Spring Configuration rules
                         .noUsageOfDeprecatedAPIs()
                         .methodsShouldNotDeclareGenericExceptions()
                         .utilityClassesShouldBeFinalAndHavePrivateConstructor()
                         .imports(imports -> imports
+                                .shouldNotImport(".*Controller", ".*Repository") // Controllers should not depend on Repositories
                                 .shouldHaveNoCycles()
                                 .shouldNotImport(lombok()))
                         .naming(naming -> naming
