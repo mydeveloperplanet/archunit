@@ -10,10 +10,12 @@ import org.junit.jupiter.api.Test;
 
 class ArchitectureTest {
 
+    private static final String BASE_PACKAGE = ArchitectureTest.class.getPackageName();
+
     @Test
     void genericExceptions() {
         Taikai.builder()
-                .namespace("com.mydeveloperplanet.archunit.taikai.webconfig")
+                .namespace(BASE_PACKAGE)
 
                 .java(java -> java
                         .methodsShouldNotDeclareGenericExceptions()

@@ -6,10 +6,12 @@ import org.junit.jupiter.api.Test;
 
 class ArchitectureLayerTest {
 
+    private static final String BASE_PACKAGE = ArchitectureLayerTest.class.getPackageName();
+
     @Test
     void layeredArchitecture() {
         Taikai.builder()
-                .namespace("com.mydeveloperplanet.archunit.taikai.introduction")
+                .namespace(BASE_PACKAGE)
 
                 .java(java -> java
                         .imports(imports -> imports

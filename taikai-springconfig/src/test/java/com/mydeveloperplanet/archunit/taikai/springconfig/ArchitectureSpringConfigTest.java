@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 class ArchitectureSpringConfigTest {
 
-    private static final String BASE_PACKAGE = "com.mydeveloperplanet.archunit.taikai.springconfig";
+    private static final String BASE_PACKAGE = ArchitectureSpringConfigTest.class.getPackageName();
     
     @Test
     void enforceSpringBootConfiguration() {

@@ -8,11 +8,12 @@ import org.junit.jupiter.api.Test;
 
 class ArchitectureDependencyTest {
 
+    private static final String BASE_PACKAGE = ArchitectureDependencyTest.class.getPackageName();
     
     @Test
     void doNotAllowLombok() {
         Taikai.builder()
-                .namespace("com.mydeveloperplanet.archunit.taikai.dependency")
+                .namespace(BASE_PACKAGE)
 
                 .java(java -> java
                         .imports(imports -> imports

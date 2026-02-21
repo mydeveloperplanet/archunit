@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 
 class ArchitectureTest {
 
-    private static final String BASE_PACKAGE = "com.mydeveloperplanet.archunit.taikai.complete";
+    private static final String BASE_PACKAGE = ArchitectureTest.class.getPackageName();
 
 
     @Test
