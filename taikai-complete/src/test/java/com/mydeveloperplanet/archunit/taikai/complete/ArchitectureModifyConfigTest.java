@@ -1,8 +1,8 @@
 package com.mydeveloperplanet.archunit.taikai.complete;
 
+import static com.enofex.taikai.java.ImportPatterns.lombok;
 import static com.tngtech.archunit.core.domain.JavaModifier.FINAL;
 import static com.tngtech.archunit.core.domain.JavaModifier.PRIVATE;
-import static com.enofex.taikai.java.ImportPatterns.lombok;
 
 import java.util.List;
 
@@ -15,30 +15,21 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-class ArchitectureTest {
+class ArchitectureModifyConfigTest {
 
-    private static final String BASE_PACKAGE = ArchitectureTest.class.getPackageName();
+    private static final String BASE_PACKAGE = ArchitectureModifyConfigTest.class.getPackageName();
 
     @Test
     void testShouldFulfillConstraints() {
-        Taikai.builder()
+        Taikai defaultConfig = Taikai.builder()
                 .namespace(BASE_PACKAGE)
-                .excludeClasses("^com\\.mydeveloperplanet\\.archunit\\.taikai\\.complete\\.(openapi|jooq).*$") // exclude generated code
                 .java(java -> java
-                        // Spring Configuration rules
-                        .classesShouldResideInPackage(".*Config", BASE_PACKAGE + ".config")
-                        .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, Configuration.class)
-                        .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, EnableConfigurationProperties.class)
-                        .classesShouldBeAnnotatedWith(".*ArchunitTaikaiCompleteApplication", ConfigurationPropertiesScan.class)
-                        .classesAnnotatedWithShouldBeRecords(ConfigurationProperties.class)
-                        // end Spring Configuration rules
                         .noUsageOfDeprecatedAPIs()
                         .methodsShouldNotDeclareGenericExceptions()
                         .utilityClassesShouldBeFinalAndHavePrivateConstructor()
                         .imports(imports -> imports
                                 .shouldNotImport(".*Controller", ".*Repository") // Controllers should not depend on Repositories
-                                .shouldHaveNoCycles()
-                                .shouldNotImport(lombok()))
+                                .shouldHaveNoCycles())
                         .naming(naming -> naming
                                 .classesShouldNotMatch(".*Impl")
                                 .fieldsShouldNotMatch(".*(List|Set|Map)$")
@@ -66,8 +57,22 @@ class ArchitectureTest {
                                 .shouldBeAnnotatedWithRepository()
                                 .namesShouldEndWithRepository()
                                 .shouldNotDependOnServices()))
-                .build()
-                .checkAll();
+                .build();
+
+        Taikai customConfig = defaultConfig.toBuilder()
+                .excludeClasses("^com\\.mydeveloperplanet\\.archunit\\.taikai\\.complete\\.(openapi|jooq).*$") // exclude generated code
+                .java(java -> java
+                                // Spring Configuration rules
+                                .classesShouldResideInPackage(".*Config", BASE_PACKAGE + ".config")
+                                .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, Configuration.class)
+                                .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, EnableConfigurationProperties.class)
+                                .classesShouldBeAnnotatedWith(".*ArchunitTaikaiCompleteApplication", ConfigurationPropertiesScan.class)
+                                .classesAnnotatedWithShouldBeRecords(ConfigurationProperties.class)
+                                // end Spring Configuration rules
+                                .imports(imports -> imports
+                                        .shouldNotImport(lombok())))
+                        .build();
+        customConfig.check();
     }
 
 }
