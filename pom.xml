@@ -18,6 +18,7 @@
 		<module>taikai-springconfig</module>
 		<module>taikai-webconfig</module>
 		<module>taikai-complete</module>
-	</modules>
+    <module>taikai-customrule</module>
+  </modules>
 
 </project>

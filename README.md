@@ -36,6 +36,8 @@ Layered architecture [example](taikai-introduction/src/test/java/com/mydeveloper
 ## Taikai Complete
 [taikai-complete](taikai-complete): a complete set of rules for an application.
 * `ArchitectureTest`: a complete example
+* Generated code contains rule violations. Exclude the generated code from the test using `excludeClasses`.
 * `ArchitectureModifyConfigTest`: a base configuration which you modify project specific
 
-Generated code contains rule violations. Exclude the generated code from the test using `excludeClasses`.
+## Taikai Custom Rule
+[taikai-customrule](taikai-customrule): you can still add custom ArchUnit rules if predefined rules do not satisfy your requirements
