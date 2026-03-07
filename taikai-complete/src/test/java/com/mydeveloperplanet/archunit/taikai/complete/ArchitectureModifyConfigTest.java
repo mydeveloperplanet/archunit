@@ -62,16 +62,16 @@ class ArchitectureModifyConfigTest {
         Taikai customConfig = defaultConfig.toBuilder()
                 .excludeClasses("^com\\.mydeveloperplanet\\.archunit\\.taikai\\.complete\\.(openapi|jooq).*$") // exclude generated code
                 .java(java -> java
-                                // Spring Configuration rules
-                                .classesShouldResideInPackage(".*Config", BASE_PACKAGE + ".config")
-                                .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, Configuration.class)
-                                .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, EnableConfigurationProperties.class)
-                                .classesShouldBeAnnotatedWith(".*ArchunitTaikaiCompleteApplication", ConfigurationPropertiesScan.class)
-                                .classesAnnotatedWithShouldBeRecords(ConfigurationProperties.class)
-                                // end Spring Configuration rules
-                                .imports(imports -> imports
-                                        .shouldNotImport(lombok())))
-                        .build();
+                        // Spring Configuration rules
+                        .classesShouldResideInPackage(".*Config", BASE_PACKAGE + ".config")
+                        .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, Configuration.class)
+                        .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, EnableConfigurationProperties.class)
+                        .classesShouldBeAnnotatedWith(".*ArchunitTaikaiCompleteApplication", ConfigurationPropertiesScan.class)
+                        .classesAnnotatedWithShouldBeRecords(ConfigurationProperties.class)
+                        // end Spring Configuration rules
+                        .imports(imports -> imports
+                                .shouldNotImport(lombok())))
+                .build();
         customConfig.check();
     }
 
