@@ -29,7 +29,7 @@ class ArchitectureTest {
                         .classesShouldResideInPackage(".*Config", BASE_PACKAGE + ".config")
                         .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, Configuration.class)
                         .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, EnableConfigurationProperties.class)
-                        .classesShouldBeAnnotatedWith(".*ArchunitTaikaiCompleteApplication", ConfigurationPropertiesScan.class)
+                        .classesShouldBeAnnotatedWith(".*Application", ConfigurationPropertiesScan.class)
                         .classesAnnotatedWithShouldBeRecords(ConfigurationProperties.class)
                         // end Spring Configuration rules
                         .noUsageOfDeprecatedAPIs()

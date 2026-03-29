@@ -1,13 +1,13 @@
-package com.mydeveloperplanet.archunit.base;
+package com.mydeveloperplanet.archunit.introduction;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ArchunitBaseApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ArchunitBaseApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }

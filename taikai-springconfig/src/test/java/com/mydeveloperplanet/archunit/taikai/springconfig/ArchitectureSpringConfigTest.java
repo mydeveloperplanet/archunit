@@ -21,7 +21,7 @@ class ArchitectureSpringConfigTest {
                         .classesShouldResideInPackage(".*Config", BASE_PACKAGE + ".config")
                         .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, Configuration.class)
                         .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, EnableConfigurationProperties.class)
-                        .classesShouldBeAnnotatedWith(".*ArchunitTaikaiSpringConfigApplication", ConfigurationPropertiesScan.class)
+                        .classesShouldBeAnnotatedWith(".*Application", ConfigurationPropertiesScan.class)
                         .classesAnnotatedWithShouldBeRecords(ConfigurationProperties.class))
 
                 .build()

@@ -1,13 +1,13 @@
-package com.mydeveloperplanet.archunit.taikai.customrule;
+package com.mydeveloperplanet.archunit.taikai.webconfig;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TaikaiCustomRuleApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TaikaiCustomRuleApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }

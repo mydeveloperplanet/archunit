@@ -1,13 +1,13 @@
-package com.mydeveloperplanet.archunit.introduction;
+package com.mydeveloperplanet.archunit.taikai.introduction;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ArchunitIntroductionApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ArchunitIntroductionApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }
