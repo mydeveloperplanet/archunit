@@ -13,15 +13,12 @@ class ArchitectureLayerTest {
         Taikai.builder()
                 .namespace(BASE_PACKAGE)
 
-                .java(java -> java
-                        .imports(imports -> imports
-                                .shouldNotImport(".*Controller", ".*Repository")))
-
                 .spring(spring -> spring
                         .controllers(controllers -> controllers
                                 .shouldBeAnnotatedWithRestController()
                                 .namesShouldEndWithController()
-                                .shouldNotDependOnOtherControllers())
+                                .shouldNotDependOnOtherControllers()
+                                .shouldNotDependOnRepositories())
                         .services(services -> services
                                 .shouldBeAnnotatedWithService()
                                 .namesShouldEndWithService()
@@ -29,7 +26,8 @@ class ArchitectureLayerTest {
                         .repositories(repositories -> repositories
                                 .shouldBeAnnotatedWithRepository()
                                 .namesShouldEndWithRepository()
-                                .shouldNotDependOnServices()))
+                                .shouldNotDependOnServices()
+                                .shouldNotDependOnControllers()))
 
                 .build()
                 .check();

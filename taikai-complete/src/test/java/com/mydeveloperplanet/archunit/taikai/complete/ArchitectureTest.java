@@ -57,7 +57,8 @@ class ArchitectureTest {
                         .controllers(controllers -> controllers
                                 .shouldBeAnnotatedWithRestController()
                                 .namesShouldEndWithController()
-                                .shouldNotDependOnOtherControllers())
+                                .shouldNotDependOnOtherControllers()
+                                .shouldNotDependOnRepositories())
                         .services(services -> services
                                 .shouldBeAnnotatedWithService()
                                 .namesShouldEndWithService()
@@ -65,7 +66,8 @@ class ArchitectureTest {
                         .repositories(repositories -> repositories
                                 .shouldBeAnnotatedWithRepository()
                                 .namesShouldEndWithRepository()
-                                .shouldNotDependOnServices()))
+                                .shouldNotDependOnServices()
+                                .shouldNotDependOnControllers()))
                 .build()
                 .checkAll();
     }

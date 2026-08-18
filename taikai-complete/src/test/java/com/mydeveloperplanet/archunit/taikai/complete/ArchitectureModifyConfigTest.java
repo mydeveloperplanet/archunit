@@ -48,7 +48,8 @@ class ArchitectureModifyConfigTest {
                         .controllers(controllers -> controllers
                                 .shouldBeAnnotatedWithRestController()
                                 .namesShouldEndWithController()
-                                .shouldNotDependOnOtherControllers())
+                                .shouldNotDependOnOtherControllers()
+                                .shouldNotDependOnRepositories())
                         .services(services -> services
                                 .shouldBeAnnotatedWithService()
                                 .namesShouldEndWithService()
@@ -56,7 +57,8 @@ class ArchitectureModifyConfigTest {
                         .repositories(repositories -> repositories
                                 .shouldBeAnnotatedWithRepository()
                                 .namesShouldEndWithRepository()
-                                .shouldNotDependOnServices()))
+                                .shouldNotDependOnServices()
+                                .shouldNotDependOnControllers()))
                 .build();
 
         Taikai customConfig = defaultConfig.toBuilder()
