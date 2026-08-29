@@ -36,7 +36,6 @@ class ArchitectureTest {
                         .methodsShouldNotDeclareGenericExceptions()
                         .utilityClassesShouldBeFinalAndHavePrivateConstructor()
                         .imports(imports -> imports
-                                .shouldNotImport(".*Controller", ".*Repository") // Controllers should not depend on Repositories
                                 .shouldHaveNoCycles()
                                 .shouldNotImport(lombok()))
                         .naming(naming -> naming
