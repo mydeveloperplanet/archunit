@@ -76,7 +76,7 @@
     <dependency>
       <groupId>com.tngtech.archunit</groupId>
       <artifactId>archunit</artifactId>
-      <version>1.4.1</version>  <!-- Check for the latest stable version -->
+      <version>1.5.0</version>  <!-- Check for the latest stable version -->
       <scope>test</scope>
     </dependency>
     <dependency>
