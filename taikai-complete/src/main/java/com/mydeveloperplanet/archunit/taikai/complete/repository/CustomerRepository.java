@@ -8,16 +8,18 @@ import com.mydeveloperplanet.archunit.taikai.complete.jooq.tables.records.Custom
 import com.mydeveloperplanet.archunit.taikai.complete.model.Customer;
 
 import org.jooq.DSLContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class CustomerRepository {
 
+    @Autowired
     private DSLContext dslContext;
 
-    public CustomerRepository(DSLContext dslContext) {
-        this.dslContext = dslContext;
-    }
+//    public CustomerRepository(DSLContext dslContext) {
+//        this.dslContext = dslContext;
+//    }
 
     public List<Customer> getAllCustomers() {
         return dslContext.selectFrom(Customers.CUSTOMERS)

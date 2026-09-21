@@ -6,16 +6,18 @@ import java.util.Optional;
 import com.mydeveloperplanet.archunit.taikai.complete.model.Customer;
 import com.mydeveloperplanet.archunit.taikai.complete.repository.CustomerRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerService {
 
+    @Autowired
     private CustomerRepository customerRepository;
 
-    public CustomerService(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
+//    public CustomerService(CustomerRepository customerRepository) {
+//        this.customerRepository = customerRepository;
+//    }
 
     public List<Customer> getAllCustomers() {
         return customerRepository.getAllCustomers();

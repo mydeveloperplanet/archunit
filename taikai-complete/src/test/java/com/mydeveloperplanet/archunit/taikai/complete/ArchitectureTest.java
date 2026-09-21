@@ -7,6 +7,7 @@ import static com.enofex.taikai.java.ImportPatterns.lombok;
 import java.util.List;
 
 import com.enofex.taikai.Taikai;
+import com.enofex.taikai.TaikaiRule;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -50,7 +51,11 @@ class ArchitectureTest {
                                 .classesShouldNotBeAnnotatedWithDisabled()
                                 .methodsShouldNotBeAnnotatedWithDisabled()))
                 .spring(spring -> spring
-                        .noAutowiredFields()
+//                        .noAutowiredFields() // 1.
+//                        .noAutowiredFields(TaikaiRule.Configuration.of("com.mydeveloperplanet.archunit.taikai.complete.service")) // 2. this fails for the CustomerService, Repository is valid
+//                        .noAutowiredFields(TaikaiRule.Configuration.of(List.of("com.mydeveloperplanet.archunit.taikai.complete.service.CustomerService"))) // 3. this works
+//                        .noAutowiredFields(TaikaiRule.Configuration.of(List.of("com.mydeveloperplanet.archunit.taikai.complete.*Service"))) // 4. this works
+                        .noAutowiredFields(TaikaiRule.Configuration.of(List.of("com.mydeveloperplanet.archunit.taikai.complete.Cus*Service"))) // 5. this does not work, 2 violations found
                         .boot(boot -> boot
                                 .applicationClassShouldResideInPackage(BASE_PACKAGE))
                         .controllers(controllers -> controllers
