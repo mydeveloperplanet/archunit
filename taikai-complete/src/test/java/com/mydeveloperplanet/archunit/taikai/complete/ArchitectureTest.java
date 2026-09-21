@@ -55,7 +55,7 @@ class ArchitectureTest {
 //                        .noAutowiredFields(TaikaiRule.Configuration.of("com.mydeveloperplanet.archunit.taikai.complete.service")) // 2. this fails for the CustomerService, Repository is valid
 //                        .noAutowiredFields(TaikaiRule.Configuration.of(List.of("com.mydeveloperplanet.archunit.taikai.complete.service.CustomerService"))) // 3. this works
 //                        .noAutowiredFields(TaikaiRule.Configuration.of(List.of("com.mydeveloperplanet.archunit.taikai.complete.*Service"))) // 4. this works
-                        .noAutowiredFields(TaikaiRule.Configuration.of(List.of("com.mydeveloperplanet.archunit.taikai.complete.Cus*Service"))) // 5. this does not work, 2 violations found
+                        .noAutowiredFields(TaikaiRule.Configuration.of(List.of("com.mydeveloperplanet.archunit.taikai.complete.service.Cus*Service"))) // 5. this does not work, 2 violations found
                         .boot(boot -> boot
                                 .applicationClassShouldResideInPackage(BASE_PACKAGE))
                         .controllers(controllers -> controllers
