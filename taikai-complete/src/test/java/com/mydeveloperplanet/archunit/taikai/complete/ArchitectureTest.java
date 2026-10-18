@@ -6,6 +6,7 @@ import static com.enofex.taikai.java.ImportPatterns.lombok;
 
 import java.util.List;
 
+import com.enofex.taikai.ClassCriteria;
 import com.enofex.taikai.Taikai;
 
 import org.junit.jupiter.api.Test;
@@ -23,38 +24,50 @@ class ArchitectureTest {
     void testShouldFulfillConstraints() {
         Taikai.builder()
                 .namespace(BASE_PACKAGE)
-                .excludeClasses("^com\\.mydeveloperplanet\\.archunit\\.taikai\\.complete\\.(openapi|jooq).*$") // exclude generated code
+                .excludeClasses(ClassCriteria.nameMatching("^com\\.mydeveloperplanet\\.archunit\\.taikai\\.complete\\.(openapi|jooq).*$")) // exclude generated code
                 .java(java -> java
                         // Spring Configuration rules
-                        .classesShouldResideInPackage(".*Config", BASE_PACKAGE + ".config")
-                        .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, Configuration.class)
-                        .classesAnnotatedWithShouldNotBeAnnotatedWith(ConfigurationProperties.class, EnableConfigurationProperties.class)
-                        .classesShouldBeAnnotatedWith(".*Application", ConfigurationPropertiesScan.class)
-                        .classesAnnotatedWithShouldBeRecords(ConfigurationProperties.class)
+                        .classesShouldResideInPackage(ClassCriteria.nameMatching(".*Config"), BASE_PACKAGE + ".config")
+                        .classesShouldNotBeAnnotatedWith(ClassCriteria.annotatedWith(ConfigurationProperties.class), Configuration.class)
+                        .classesShouldNotBeAnnotatedWith(ClassCriteria.annotatedWith(ConfigurationProperties.class), EnableConfigurationProperties.class)
+                        .classesShouldBeAnnotatedWith(ClassCriteria.nameMatching(".*Application"), ConfigurationPropertiesScan.class)
+                        .classesShouldBeRecords(ClassCriteria.annotatedWith(ConfigurationProperties.class))
                         // end Spring Configuration rules
-                        .noUsageOfDeprecatedAPIs()
+                        .noUsageOfSystemOutOrErr()
+                        .fieldsShouldNotBePublic()
+                        .finalClassesShouldNotHaveProtectedMembers()
                         .methodsShouldNotDeclareGenericExceptions()
                         .utilityClassesShouldBeFinalAndHavePrivateConstructor()
+                        .serialVersionUIDFieldsShouldBeStaticFinalLong()
+                        .classesShouldImplementHashCodeAndEquals()
                         .imports(imports -> imports
                                 .shouldHaveNoCycles()
                                 .shouldNotImport(lombok()))
                         .naming(naming -> naming
+                                .packagesShouldMatchDefault()
                                 .classesShouldNotMatch(".*Impl")
                                 .fieldsShouldNotMatch(".*(List|Set|Map)$")
                                 .constantsShouldFollowConventions()
+                                .enumConstantsShouldFollowConventions()
                                 .interfacesShouldNotHavePrefixI()))
                 .logging(logging -> logging
                         .loggersShouldFollowConventions(Logger.class, "logger", List.of(PRIVATE, FINAL)))
                 .test(test -> test
                         .junit(junit5 -> junit5
+                                .classesShouldBePackagePrivate(ClassCriteria.nameMatching(".*Test"))
                                 .classesShouldNotBeAnnotatedWithDisabled()
-                                .methodsShouldNotBeAnnotatedWithDisabled()))
+                                .methodsShouldBePackagePrivate()
+                                .methodsShouldNotBeAnnotatedWithDisabled()
+                                .methodsShouldNotDeclareExceptions()
+                                .methodsShouldContainAssertionsOrVerifications()))
                 .spring(spring -> spring
                         .noAutowiredFields()
+                        .noSelfInvocationOfProxiedMethods()
                         .boot(boot -> boot
                                 .applicationClassShouldResideInPackage(BASE_PACKAGE))
                         .controllers(controllers -> controllers
                                 .shouldBeAnnotatedWithRestController()
+                                .shouldBePackagePrivate()
                                 .namesShouldEndWithController()
                                 .shouldNotDependOnOtherControllers()
                                 .shouldNotDependOnRepositories())
@@ -66,7 +79,11 @@ class ArchitectureTest {
                                 .shouldBeAnnotatedWithRepository()
                                 .namesShouldEndWithRepository()
                                 .shouldNotDependOnServices()
-                                .shouldNotDependOnControllers()))
+                                .shouldNotDependOnControllers())
+                        .transactional(transactional -> transactional
+                                .methodsShouldBePublic()
+                                .shouldNotBeSelfInvoked()
+                                .shouldNotBeUsedInControllers()))
                 .build()
                 .checkAll();
     }

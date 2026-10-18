@@ -16,6 +16,7 @@ class ArchitectureLayerTest {
                 .spring(spring -> spring
                         .controllers(controllers -> controllers
                                 .shouldBeAnnotatedWithRestController()
+                                .shouldBePackagePrivate()
                                 .namesShouldEndWithController()
                                 .shouldNotDependOnOtherControllers()
                                 .shouldNotDependOnRepositories())
