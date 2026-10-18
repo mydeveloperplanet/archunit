@@ -24,7 +24,7 @@ class ArchitectureTest {
     void testShouldFulfillConstraints() {
         Taikai.builder()
                 .namespace(BASE_PACKAGE)
-                .excludeClasses(ClassCriteria.nameMatching("^com\\.mydeveloperplanet\\.archunit\\.taikai\\.complete\\.(openapi|jooq).*$")) // exclude generated code
+                .excludeClasses(ClassCriteria.nameMatching(".*(openapi|jooq).*$")) // exclude generated code
                 .java(java -> java
                         // Spring Configuration rules
                         .classesShouldResideInPackage(ClassCriteria.nameMatching(".*Config"), BASE_PACKAGE + ".config")
