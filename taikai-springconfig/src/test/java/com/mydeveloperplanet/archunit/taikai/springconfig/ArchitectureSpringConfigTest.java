@@ -22,7 +22,7 @@ class ArchitectureSpringConfigTest {
                         .classesShouldResideInPackage(ClassCriteria.nameMatching(".*Config"), BASE_PACKAGE + ".config")
                         .classesShouldNotBeAnnotatedWith(ClassCriteria.annotatedWith(ConfigurationProperties.class), Configuration.class)
                         .classesShouldNotBeAnnotatedWith(ClassCriteria.annotatedWith(ConfigurationProperties.class), EnableConfigurationProperties.class)
-                        .classesShouldBeAnnotatedWith(ClassCriteria.nameMatching(".*Application"), ConfigurationPropertiesScan.class)
+                        .classesShouldBeAnnotatedWith(ClassCriteria.type(".*Application"), ConfigurationPropertiesScan.class)
                         .classesShouldBeRecords(ClassCriteria.annotatedWith(ConfigurationProperties.class)))
 
                 .build()
