@@ -62,6 +62,7 @@ class ArchitectureTest {
                                 .methodsShouldContainAssertionsOrVerifications()))
                 .spring(spring -> spring
                         .noAutowiredFields()
+                        .noInjectionIntoStaticFields()
                         .noSelfInvocationOfProxiedMethods()
                         .boot(boot -> boot
                                 .applicationClassShouldResideInPackage(BASE_PACKAGE))
